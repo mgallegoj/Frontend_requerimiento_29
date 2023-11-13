@@ -1,0 +1,34 @@
+<app-subnavbar></app-subnavbar>
+
+<div class="flex align-items-center justify-content-center min-h-full">
+    <!-- Show notifications -->
+    <p-toast [life]="20000" position="center"></p-toast>
+    <div class="flex-1 max-w-max p-5">
+        <!-- Upload registration data as a txt -->
+        <p-card header="Realizar múltiples inscripciones">
+            <div class="pb-2">
+                <p-fileUpload class="flex justify-content-center"
+                              mode="basic"
+                              chooseLabel="Selecciona un txt"
+                              name="file"
+                              url="http://localhost:8080/api.dian-descuento/v1/file/data/upload"
+                              method="post"
+                              accept=".txt"
+                              (onUpload)="onUpload($event)"
+                              (onError)="onUploadError($event)">
+                </p-fileUpload>
+              </div>
+              
+        </p-card>
+    </div>
+    <div class="w-5 text-center p-5">
+        <!-- Download all owner data as a txt -->
+        <p-card header="Descargar información de inscripción de usuario">
+            <div class="pb-2">
+                <label class="pr-3 font-bold" for="alphanumeric">Documento de identidad:</label>
+                <input class="mr-3" pInputText [(ngModel)]="document" (keyup.enter)="downloadData()"/>
+            </div>
+            <p-button class="flex justify-content-center" label="CONSULTAR" (click)="downloadData()" [disabled]="!document || document.trim().length === 0"></p-button>
+        </p-card>
+    </div>
+</div>

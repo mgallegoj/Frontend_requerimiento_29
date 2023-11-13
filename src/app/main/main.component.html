@@ -1,0 +1,146 @@
+<div class="grid p-2">
+
+    <div class="col-7 p-0 flex justify-content-center">
+        <div class="flex justify-content-center flex-wrap col-8">
+            <!-- Explanation and consult input -->
+            <p-card class="flex align-self-center flex-wrap" header="Solicitud de descuento de impuesto predial">
+                <p class="m-0">
+                    Estamos encantados de ayudarte a solicitar tu descuento en el impuesto predial de manera rápida y sencilla. Por favor, completa los campos a continuación con tu información personal y de vivienda. Esto nos permitirá procesar tu solicitud de manera eficiente.
+                    Si ya has realizado tu solicitud, puedes consultar su estado en el siguiente botón.
+                </p>
+                <div class="flex pt-5 pb-2 justify-content-center">
+                    <label class="flex align-items-center pr-3 font-bold" for="alphanumeric">Documento de identidad:</label>
+                    <input class="flex align-items-center mr-3" pInputText [(ngModel)]="document" (keyup.enter)="getOwnerData()"/>
+                  
+                    <div class="flex align-items-center">
+                      <p-button label="CONSULTAR" (click)="getOwnerData()"></p-button>
+                    </div>
+                </div>
+            </p-card>
+
+            <!-- Table that shows owner properties data -->
+            <div *ngIf="owner && owner.length > 0" class="justify-content-center py-3">
+                <p-table
+                    [value]="owner"
+                    [paginator]="true"
+                    [rows]="5"
+                    [showCurrentPageReport]="true"
+                    [tableStyle]="{}"
+                    currentPageReportTemplate="{last}/{totalRecords} propiedades"
+                    [rowsPerPageOptions]="[5, 10]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:25%; text-align:center">Ciudad</th>
+                            <th style="width:25%; text-align:center">Dirección</th>
+                            <th style="width:25%; text-align:center">Fecha pago oportuno</th>
+                            <th style="width:25%; text-align:center">Valor a pagar</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-property>
+                        <tr>
+                            <td style="text-align:center">{{ property.city }}</td>
+                            <td style="text-align:center">{{ property.address }}</td>
+                            <td style="text-align:center">{{ property.deadlineDate }}</td>
+                            <td style="text-align:center">{{ property.netPayment  | number:'1.0-0'}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="col-5 flex justify-content-center">
+        <!-- Show notifications -->
+        <p-toast></p-toast>
+        <div class="flex align-items-center flex-wrap">
+            <!-- Registration form -->
+            <div [formGroup]="discountForm" class="align-items-center my-4 p-5 border-1 surface-border border-round divcolor">
+                <h1 class="text-center">¡Aplique a su descuento aquí!</h1>
+                <h4 class="m-0 mb-2">Datos personales</h4>
+                <div class="grid p-1">
+                    <div class="col-5">
+                        <label for="alphanumeric" class="block mb-2">Tipo de documento</label>
+                        <p-dropdown formControlName="document_type" [options]="types" optionLabel="name" optionValue="code" placeholder="--"></p-dropdown>
+                    </div>
+                    <div class="col-7">
+                        <label for="alphanumeric" class="block mb-2">Número de identificación</label>
+                        <input formControlName="document" pInputText type="text" class="w-full" [ngClass]="{'invalid-field': discountForm.controls.document.touched && discountForm.controls.document.invalid}"/>
+                    </div>
+                </div>
+                <div class="grid p-1">
+                    <div class="col-6">
+                        <label for="alphanumeric" class="block mb-2">Primer nombre</label>
+                        <input formControlName="first_name" pInputText type="text" class="w-full" [ngClass]="{'invalid-field': discountForm.controls.first_name.touched && discountForm.controls.first_name.invalid}"/>
+                    </div>
+                    <div class="col-6">
+                        <label for="alphanumeric" class="block mb-2">Primer apellido</label>
+                        <input formControlName="last_name" pInputText type="text" class="w-full" [ngClass]="{'invalid-field': discountForm.controls.last_name.touched && discountForm.controls.last_name.invalid}"/>
+                    </div>
+                </div>
+                <div class="grid p-1">
+                    <label class="col-8">¿Tienes más de 60 años?</label>
+                    <div class="col-2">
+                        <p-radioButton formControlName="over_60" value="Si"></p-radioButton>
+                        <label class="ml-2">Sí</label>
+                    </div>
+                    <div class="col-2">
+                        <p-radioButton formControlName="over_60" value="No"></p-radioButton>
+                        <label class="ml-2">No</label>
+                    </div>
+                </div>
+                <div class="grid p-1">
+                    <label class="col-8">¿Eres cabeza de familia?</label>
+                    <div class="col-2">
+                        <p-radioButton formControlName="head_of_household" value="Si"></p-radioButton>
+                        <label class="ml-2">Sí</label>
+                    </div>
+                    <div class="col-2">
+                        <p-radioButton formControlName="head_of_household" value="No"></p-radioButton>
+                        <label class="ml-2">No</label>
+                    </div>
+                </div>
+                <div class="grid p-1">
+                    <label class="col-8">¿Te encuentras sin empleo?</label>
+                    <div class="col-2">
+                        <p-radioButton formControlName="unenployed" value="Si"></p-radioButton>
+                        <label class="ml-2">Sí</label>
+                    </div>
+                    <div class="col-2 pb-3">
+                        <p-radioButton formControlName="unenployed" value="No"></p-radioButton>
+                        <label class="ml-2">No</label>
+                    </div>
+                </div>
+                <h4 class="m-0 mb-2">Datos vivienda</h4>
+                <div class="grid">
+                    <div class="col-4">
+                        <label for="alphanumeric" class="block mb-2">Tipo de predio</label>
+                        <p-dropdown formControlName="propertyType" [options]="property" optionLabel="name" optionValue="code" placeholder="--"></p-dropdown>
+                    </div>
+                    <div class="col-8">
+                        <label for="alphanumeric" class="block mb-2">Ciudad</label>
+                        <input formControlName="city" pInputText type="text" class="w-full" [ngClass]="{'invalid-field': discountForm.controls.city.touched && discountForm.controls.city.invalid}"/>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-2">
+                        <label for="alphanumeric" class="block mb-2">Estrato</label>
+                        <p-dropdown formControlName="stratum" class="w-full" [options]="stratum" optionLabel="name" optionValue="code" placeholder="--"></p-dropdown>
+                    </div>
+                    <div class="col-10">
+                        <label for="alphanumeric" class="block mb-2">Derección de la vivienda</label>
+                        <input formControlName="address" pInputText type="text" class="w-full" [ngClass]="{'invalid-field': discountForm.controls.address.touched && discountForm.controls.address.invalid}"/>
+                    </div>
+                </div>
+                <div class="pb-3">
+                    <label class="block mb-2">Avalúo catastral</label>
+                    <input formControlName="tax" class="w-full" pInputText id="integer" pKeyFilter="int" type="number" [ngClass]="{'invalid-field': discountForm.controls.tax.touched && discountForm.controls.tax.invalid}"/>
+                    <div *ngIf="discountForm.get('tax')?.hasError('max') && discountForm.get('tax')?.touched">
+                        <small>El valor del impuesto debe ser menor a 90.909.090.910</small>
+                    </div>
+                </div>
+                <div class="flex flex-row-reverse">
+                    <p-button label="ENVIAR" (onClick)="saveOwner() " [disabled]="!discountForm.valid"></p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

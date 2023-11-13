@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/saga-orange/theme.css";
+@import "primeng/resources/primeng.css";
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 100vh;
+    background: #f3f3f3;
+}
+  

@@ -1,0 +1,37 @@
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+    background: #D9D9D9;
+    color: #000000;
+}
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+    background: #D9D9D9;
+    border-color: #016D38;
+    color: #016D38;
+}
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav {
+    background: #D9D9D9;
+}
+/* navbar.component.css */
+.flex {
+    display: flex;
+    background: #D9D9D9;
+}
+
+.flex-tabmenu {
+    flex-grow: 1;
+}
+
+.button {
+    color: #212529;
+    background: #ffc10700;
+    border: 1px solid #ffc10700;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    background: #D9D9D9;
+    height: 50px;   
+    padding: 5px 5px 7px 5px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #bcbcbc;
+    border-color: #e0a80000;
+}

@@ -1,0 +1,41 @@
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+    background: #016D38;
+    border-width: 0 0 4px 0;
+    border-color: #FFC107;
+    color: #FFC107;
+}
+
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+    background: #016D38;
+    border-width: 0 0 4px 0;
+    border-color: #ffffff00;
+    color: #ffffff;
+}
+
+:host ::ng-deep .p-tabmenu:hover .p-tabmenu-nav:hover .p-tabmenuitem:hover .p-menuitem-link:hover {
+    border: solid #ffd451;
+    color: #ffd451;
+    border-width: 0 0 4px 0;
+}
+
+:host ::ng-deep .p-tabmenu .p-tabmenu-nav {
+    background: #016D38;
+    border: solid #04D960;
+    border-width: 0 0 2px 0;
+}
+/* navbar.component.css */
+.flex {
+    display: flex;
+    background: #016D38;
+    border-width: 0 0 4px 0;
+}
+  
+.logo {
+    margin-right: 30px;
+    height: 50px;   
+    padding: 5px 5px 0px 10px; 
+}
+
+.flex-tabmenu {
+    flex-grow: 1;
+}

@@ -1,0 +1,7 @@
+.divcolor {
+    background: white;
+}
+
+.invalid-field {
+    border: 2px solid red;
+  }
